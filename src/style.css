@@ -8,4 +8,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: scale(1); 
+}
+
+.cell.win {
+  transform: scale(1.5); 
+  animation: win 1s infinite alternate ease-in-out;
+}
+
+@keyframes win {
+  from {
+    transform: scale(1); 
+  }
+  to {
+    transform: scale(1.5); 
+  }
 }

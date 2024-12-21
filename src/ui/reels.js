@@ -1,3 +1,5 @@
+import {wait} from '../utils/wait.js'
+
 export const reelsElement = document.createElement('div')
 
 export const numRows = 2
@@ -29,6 +31,27 @@ export function showScreen(screen) {
     for (let y = 0; y < screen[x].length; y++) {
       cells[y][x].innerText =  screen[x][y]
     }
+  }
+}
+
+export async function showWins(wins) {
+  console.log('reels.showWins: ', wins)
+  for (let win of wins) {
+    await showWin(win)
+  }
+}
+
+async function showWin(win) {
+  console.log('reels.showWin: ', win)
+
+  for (const {x, y} of win.positions) {
+      cells[x][y].classList.add('win')
+  }
+
+  await wait(1000)
+
+  for (const {x, y} of win.positions) {
+      cells[x][y].classList.remove('win')
   }
 }
 
