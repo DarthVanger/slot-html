@@ -1,3 +1,17 @@
 import {spin} from './machine.js'
-document.body.innerHTML += "<h2>Hello from index.JS</h2"
-spin();
+import {spinButton} from './ui/spinButton.js'
+import {reelsElement, showScreen} from './ui/reels.js'
+
+function start() {
+  console.log('App start')
+  document.body.append(reelsElement)
+  document.body.append(spinButton)
+  spinButton.addEventListener('click', handleSpinClick)
+}
+
+function handleSpinClick() {
+  const {screen, wins} = spin()
+  showScreen(screen)
+}
+
+start()

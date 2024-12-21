@@ -1,0 +1,11 @@
+.reel {
+  display: inline-block;
+  width: 100px;
+  border: solid black 1px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
