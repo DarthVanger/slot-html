@@ -1,4 +1,5 @@
 import {wait} from '../utils/wait.js'
+import {showMessage} from './messageBox.js'
 
 export const reelsElement = document.createElement('div')
 
@@ -15,7 +16,7 @@ function createReels() {
     const reel = []
     for (let y = 0; y < numRows; y++) {
         const cellElement = createCellElement()
-        cellElement.innerText = '-'
+        cellElement.append(createCellContentElement('-'))
         reelElement.append(cellElement)
         reel.push(cellElement)
     }
@@ -29,21 +30,25 @@ export function showScreen(screen) {
 
   for (let x = 0; x < screen.length; x++) {
     for (let y = 0; y < screen[x].length; y++) {
-      cells[y][x].innerText =  screen[x][y]
+      cells[y][x].innerHTML = ''
+      cells[y][x].append(createCellContentElement(screen[x][y]))
     }
   }
 }
 
 export async function showWins(wins) {
   console.log('reels.showWins: ', wins)
-  for (let win of wins) {
-    await showWin(win)
+  while (true) {
+    for (let i = 0; i < wins.length; i++) {
+      await showWin(wins[i], i)
+    }
   }
 }
 
-async function showWin(win) {
+async function showWin(win, winIndex) {
   console.log('reels.showWin: ', win)
 
+  showMessage(`Win #${winIndex}`)
   for (const {x, y} of win.positions) {
       cells[x][y].classList.add('win')
   }
@@ -65,4 +70,11 @@ function createCellElement() {
     const cellElement = document.createElement('div')
     cellElement.className = 'cell'
     return cellElement
+}
+
+function createCellContentElement(text) {
+    const element = document.createElement('div')
+    element.innerText = text
+    element.className = 'cell-content'
+    return element
 }

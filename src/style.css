@@ -8,11 +8,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: scale(1); 
 }
 
 .cell.win {
-  transform: scale(1.5); 
+  border: 1px red solid; 
+}
+
+.cell.win .cell-content {
   animation: win 1s infinite alternate ease-in-out;
 }
 
@@ -23,4 +25,11 @@
   to {
     transform: scale(1.5); 
   }
+}
+
+#message-box {
+  padding: 1em;
+  border: solid black 1px;
+  margin: 1em 0;
+  width: 200px;
 }
