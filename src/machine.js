@@ -50,5 +50,5 @@ export function spin() {
     }
   ]
 
-  return {screen, wins}
+  return {screen, wins, reels}
 }

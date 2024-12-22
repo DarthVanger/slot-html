@@ -1,10 +1,8 @@
+import { numRows, numCols } from '../config.js'
 import {wait} from '../utils/wait.js'
 import {showMessage} from './messageBox.js'
 
 export const reelsElement = document.createElement('div')
-
-export const numRows = 2
-export const numCols = 3
 
 export const cells = []
 
