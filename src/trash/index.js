@@ -44,8 +44,10 @@ const generateCombinations = (rows, cols) => {
 
         priceConfig.forEach(element => {
             element.prices.forEach(price => {})
-            console.log(matrix[element.symbol]);
+            const price = matrix[element.symbol];
         })
+
+        //console.log('matrix: ', matrix);
 
         const lines = [
             [0, 0, 0], // horizontal
@@ -89,7 +91,19 @@ const generateCombinations = (rows, cols) => {
 // Пример использования
 const rows = 2; // Количество строк
 const cols = 3; // Количество столбцов
-const result = generateCombinations(rows, cols);
+const result = generateCombinations(cols, rows);
+
+console.log('result: ', result)
+
+let i = 0;
+export function spin() {
+  const screen = result[i++].matrix
+  return {
+    screen: result[i++].matrix,
+    wins: [],
+    reels: [],
+  }
+}
 
 console.log('number of combinations: ', result.length);
 console.log('wins:', winsConfig);

@@ -1,4 +1,4 @@
-import {spin} from './machine.js'
+import {spin} from './trash/index.js'
 import {spinButton} from './ui/spinButton.js'
 import {reelsElement, showScreen, showWins, stopWinsAnimation} from './ui/reels.js'
 import {messageBoxElement} from './ui/messageBox.js'
