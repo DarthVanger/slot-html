@@ -1,6 +1,6 @@
 import {spin} from './machine.js'
 import {spinButton} from './ui/spinButton.js'
-import {reelsElement, showScreen, showWins} from './ui/reels.js'
+import {reelsElement, showScreen, showWins, stopWinsAnimation} from './ui/reels.js'
 import {messageBoxElement} from './ui/messageBox.js'
 import {debugElement, showReels} from './ui/debug.js'
 
@@ -14,6 +14,7 @@ function start() {
 }
 
 function handleSpinClick() {
+  stopWinsAnimation()
   const {screen, wins, reels} = spin()
   showScreen(screen)
   showWins(wins)

@@ -34,12 +34,19 @@ export function showScreen(screen) {
   }
 }
 
+export  function stopWinsAnimation() {
+  console.log('stopWinAnimation')
+  for (let x = 0; x < numCols; x++) {
+    for (let y = 0; y < numRows; y++) {
+      cells[x][y].classList.remove('win')
+    }
+  }
+}
+
 export async function showWins(wins) {
   console.log('ui/reels.showWins: ', wins)
-  while (true) {
-    for (let i = 0; i < wins.length; i++) {
-      await showWin(wins[i], i)
-    }
+  for (let i = 0; i < wins.length; i++) {
+    await showWin(wins[i], i)
   }
 }
 
