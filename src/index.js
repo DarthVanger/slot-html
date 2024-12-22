@@ -15,9 +15,9 @@ function start() {
 
 function handleSpinClick() {
   stopWinsAnimation()
-  const {screen, wins, reels} = spin()
+  const {screen, win, reels} = spin()
   showScreen(screen)
-  showWins(wins)
+  showWins(win)
   showReels(reels)
 }
 

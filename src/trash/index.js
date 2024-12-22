@@ -1,4 +1,3 @@
-let winsConfig = 0;
 const priceConfig = [
     {
         symbol: 0,
@@ -20,7 +19,7 @@ const priceConfig = [
     },
 ]
 const generateCombinations = (rows, cols) => {
-    const win = []
+    const wins = []
     //                  = 3 * 2 = 6
     const totalElements = rows * cols;
     //                      = 2^6 = 64
@@ -30,6 +29,7 @@ const generateCombinations = (rows, cols) => {
     for (let i = 0; i < totalCombinations; i++) {
         // For example: '000', '001', etc
         const binaryString = i.toString(2).padStart(totalElements, '0');
+        // 2x3 matrix
         const matrix = [];
         for (let r = 0; r < rows; r++) {
             const row = [];
@@ -47,8 +47,6 @@ const generateCombinations = (rows, cols) => {
             const price = matrix[element.symbol];
         })
 
-        //console.log('matrix: ', matrix);
-
         const lines = [
             [0, 0, 0], // horizontal
             [1, 1, 1], // horizontal
@@ -64,6 +62,9 @@ const generateCombinations = (rows, cols) => {
 
         let prevSymbol;
         let isWin = false;
+        const win = {
+          lines: []
+        }
         for (const line of lines) {
             for (let col = 0; col < line.length; col++) {
                 const symbol = matrix[line[col]][col]
@@ -74,39 +75,60 @@ const generateCombinations = (rows, cols) => {
             }
 
             if (isWin) {
-                // console.log('win line #' + lines.indexOf(line), line);
+              const winLine = {
+                id: lines.indexOf(line),
+                win: 1.5,
+                lineArray: line
+              }
+              win.lines.push(winLine)
+              // console.log('win line ' + lines.indexOf(line), winLine);
             }
         }
 
-        // console.log('isWin: ', isWin);
-        if (isWin) {
-            winsConfig++;
-        }
-
+       if (isWin) {
+         wins.push({
+           lines: win.lines,
+           win: win.lines.reduce((acc, curr) => acc + curr.win, 0),
+         });
+       }
     }
 
-    return combinations;
+    return {combinations, wins};
 };
 
 // Пример использования
 const rows = 2; // Количество строк
 const cols = 3; // Количество столбцов
-const result = generateCombinations(cols, rows);
+const {combinations, wins } = generateCombinations(rows, cols);
 
-console.log('result: ', result)
+console.log('combinations: ', combinations)
+console.log('number of combinations: ', combinations.length);
+console.log('wins: ', wins)
 
-let i = 0;
+let i = -1;
 export function spin() {
-  const screen = result[i++].matrix
+  i++
+  const screen = transpose(combinations[i].matrix)
   return {
-    screen: result[i++].matrix,
-    wins: [],
+    screen,
+    win: wins[i],
     reels: [],
   }
 }
 
-console.log('number of combinations: ', result.length);
-console.log('wins:', winsConfig);
+
+function transpose(matrix) {
+  let newMatrix = []
+  for (let x = 0; x < matrix.length; x++) {
+    for (let y = 0; y < matrix[x].length; y++) {
+      if (!newMatrix[y]) {
+        newMatrix[y] = []
+      }
+      newMatrix[y][x] = matrix[x][y]
+    }
+  }
+  return newMatrix
+}
 
 // Вывод результата
 //console.log(JSON.stringify(result, null, 2));

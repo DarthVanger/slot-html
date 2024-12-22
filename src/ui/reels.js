@@ -1,6 +1,7 @@
 import { numRows, numCols } from '../config.js'
 import {wait} from '../utils/wait.js'
 import {showMessage} from './messageBox.js'
+import { debugElement } from './debug.js'
 
 export const reelsElement = document.createElement('div')
 
@@ -43,23 +44,34 @@ export  function stopWinsAnimation() {
   }
 }
 
-export async function showWins(wins) {
-  console.log('ui/reels.showWins: ', wins)
-  for (let i = 0; i < wins.length; i++) {
-    await showWin(wins[i], i)
+export async function showWins(win) {
+  console.log('ui/reels.showWins: ', win)
+  const winsText = JSON.stringify(win, null, 2)
+  const element = document.createElement('div')
+  element.innerText = winsText
+
+  debugElement.append(element)
+
+  for (let i = 0; i < win.lines.length; i++) {
+    await showWin(win.lines[i], i)
   }
 }
 
-async function showWin(win, winIndex) {
+async function showWin(line, winIndex) {
   showMessage(`Win #${winIndex}`)
-  for (const {x, y} of win.positions) {
-      cells[x][y].classList.add('win')
+  for (let x = 0; x < numCols; x++) {
+    for (const y of line.lineArray) {
+        cells[x][y].classList.add('win')
+    }
   }
+
 
   await wait(1000)
 
-  for (const {x, y} of win.positions) {
-      cells[x][y].classList.remove('win')
+  for (let x = 0; x < numCols; x++) {
+    for (const y of line.lineArray) {
+        cells[x][y].classList.remove('win')
+    }
   }
 }
 
