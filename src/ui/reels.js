@@ -26,18 +26,18 @@ function createReels() {
 }
 
 export function showScreen(screen) {
-  console.log('reels.showScreen: ', screen)
+  console.log('ui/reels.showScreen: ', screen)
 
   for (let x = 0; x < screen.length; x++) {
     for (let y = 0; y < screen[x].length; y++) {
-      cells[y][x].innerHTML = ''
-      cells[y][x].append(createCellContentElement(screen[x][y]))
+      cells[x][y].innerHTML = ''
+      cells[x][y].append(createCellContentElement(screen[x][y]))
     }
   }
 }
 
 export async function showWins(wins) {
-  console.log('reels.showWins: ', wins)
+  console.log('ui/reels.showWins: ', wins)
   while (true) {
     for (let i = 0; i < wins.length; i++) {
       await showWin(wins[i], i)
@@ -46,8 +46,6 @@ export async function showWins(wins) {
 }
 
 async function showWin(win, winIndex) {
-  console.log('reels.showWin: ', win)
-
   showMessage(`Win #${winIndex}`)
   for (const {x, y} of win.positions) {
       cells[x][y].classList.add('win')

@@ -1,10 +1,39 @@
+const numRows = 2
+
+let reels = [
+  [0, 0, 0, 0, 1, 1, 1, 1],
+  [0, 0, 0, 0, 1, 1, 1, 1],
+  [0, 0, 0, 0, 1, 1, 1, 1],
+]
+
+/**
+ *
+ * Return sliced reels, showing only first `numRows` rows
+ * For example for 3x2 game:
+ * screen = [
+ *   [0, 0],
+ *   [0, 0],
+ *   [0, 0],
+ * ]
+ */
+function getScreen(reels) {
+  return reels.map(reel => reel.slice(0, numRows))
+}
+
+console.log('machine. Initial screen: ', screen)
+
+function spinReel(reel) {
+  const newReel = [...reel]
+  const lastElement = newReel.pop()
+  newReel.unshift(lastElement)
+  return newReel
+}
+
 export function spin() {
   console.log('machine.spin()')
 
-  const screen = [
-    [0, 0, 0,],
-    [0, 0, 0,],
-  ]
+  reels = reels.map(reel => spinReel(reel))
+  const screen = getScreen(reels)
 
   const wins = [
     {
